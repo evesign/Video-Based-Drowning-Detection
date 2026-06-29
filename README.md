@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/adac6fdd-c303-48cb-aeaf-0d1077ad5fe8
 Video-Based-Drowning-Detection/
 │
 ├── 탐지 · 추적 (YOLO + SAM2 streaming)
-│   ├── test_sam2_track.py            # 추적 파이프라인 (순수)
+│   ├── test_sam2_track.py            # 추적 파이프라인
 │   ├── test_sam2_track_roi.py        # 추적 + ROI 영역 제한
 │   ├── test_sam2_rtsp_roi_crop.py    # 추적 + ROI + crop 클립 자동 저장 (학습데이터 생성)
 │   ├── test_sam2_crop_object.py      # 익수자 수동 선택 → 클립화 도구
@@ -42,7 +42,7 @@ Video-Based-Drowning-Detection/
 │
 ├── 실시간 데모
 │   ├── realtime_detection_lora.py    # 최종 LoRA 모델 통합 데모
-│   └── realtime_detection.py         # finetune 버전 (비교용)
+│   └── realtime_detection.py         # head finetune 버전 (비교용)
 │
 ├── action_recognition/               # 행동 인식 (VideoMAE v2 + LoRA)
 │   ├── train_lora.py                 # LoRA 학습
