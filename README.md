@@ -13,7 +13,7 @@
 
 ---
 
-## :🔬:Pipeline
+## 🔬Pipeline
 
 ```
 [Stage 0] 원본 영상 / RTSP 스트림
