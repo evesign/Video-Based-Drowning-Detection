@@ -118,7 +118,7 @@ pip install -r requirements.txt
 |일반 영상 (4 sec)|122|걷기, 서있기, 수영, 떠있기, 물놀이가 포함된 crop 영상|
 
 
-### 실험 결과 및 성능 분석
+### 📊 실험 결과 및 성능 분석
 
 **실험 설정**
 - 모델: VideoMAEv2 K710 backbone, Qwen3-vl-4B-thinking-FP8
