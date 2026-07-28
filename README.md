@@ -32,12 +32,11 @@ https://github.com/user-attachments/assets/adac6fdd-c303-48cb-aeaf-0d1077ad5fe8
 |분류|기술|설명|
 |------|---|---|
 |Detection|YOLO|단일 이미지(frame)에서 객체의 위치를 탐지하는 모델|
-|Segmentation|SAM2|한 프레임 내에서 물체 분할|
+|Segmentation|SAM2 & cutie|한 프레임 내에서 물체 분할|
 |Action classification backbone|VideoMAEv2 (OpenGVLab/vit_g_hybrid_pt_1200e_k710_ft)|프레임 묶음 바탕의 행동 특징 추출 백본|
 |VLM|Qwen3-VL-4B-Thinking-FP8|비디오 이해 및 추론이 가능한 Vision-Language 모델|
 |추론 엔진|vllm|고속 LLM 추론 서빙|
 |딥러닝 프레임워크|Pytorch, Transformer|모델 로딩 및 처리|
-|RTSP||고속 LLM 추론 서빙|
 
 ## Directory Structure
 
@@ -89,15 +88,48 @@ pip install -r requirements.txt
 직접 학습한 가중치 2개 (Object detection, action classification model) 저장소에 포함
 
 
-### 데이터셋 레이아웃
+### 데이터셋 구성
 
-```
-datasets/
-├── train/{class}/*.mp4     # 4초 crop 클립
-├── val/{class}/*.mp4
-└── test/{class}/*.mp4
-```
+**전체 데이터**
+|항목|수량|설명|
+|------|---|---|
+|야외 수영장 영상|73|야외 수영장 CCTV|
+|실내 수영장 영상|9|실내 수영장 CCTV|
+|행동 영상 (4 sec)|814|익수, 걷기, 서있기, 수영, 떠있기 행동 영상|
 
+**학습 데이터**
+|항목|수량|설명|
+|------|---|---|
+|익수 영상 (4 sec)|77|익수행동이 포함된 crop 영상|
+|일반 영상 (4 sec)|398|걷기, 서있기, 수영, 떠있기, 물놀이가 포함된 crop 영상|
+
+**테스트 데이터**
+|항목|수량|설명|
+|------|---|---|
+|익수 영상 (4 sec)|18|익수행동이 포함된 crop 영상|
+|일반 영상 (4 sec)|122|걷기, 서있기, 수영, 떠있기, 물놀이가 포함된 crop 영상|
+
+
+### 실험 결과 및 성능 분석
+
+**실험 설정**
+- 모델: VideoMAEv2 K710 backbone, Qwen3-vl-4B-thinking-FP8
+- 실험 영상: 익수 & 일반 행동 crop 영상 (4 sec)
+- 비디오 처리: 16 frame 균일 샘플링
+
+**성능 비교**
+|방법|F1-score|특징|
+|------|---|---|
+|VideoMAE v2 cls_head train|0.8800|backbone 고정 & head 학습|
+|VideoMAE v2 LoRA ft|0.9091|LoRA 기법으로 저차원 행렬 학습|
+
+**분석**
+1. 익수행동의 데이터 수가 적어, 다양한 환경 데이터를 활용하지 못하고 backbone 학습, vlm 파인튜닝과 같은 작업을 수행하기에 한계가 존재.
+   -> 실내 수영장 데이터 직접 확보. 다만, 다양한 환경 및 실제 익수행동의 영상 확보에는 어려움 존재
+2. K710 데이터셋으로 학습된 foundation model의 backbone을 활용하여 행동특징 분석 능력 확보.
+   -> LoRA 기법으로 저차원행렬 학습하여, 분류능력 향상
+3. 탐지(object detection) & 추적 (tracking) 모델만 사용했을 때, 객체 놓침 및 ID 변동 빈번하게 발생 
+   -> 수영장 환경에서 탐지 모델 학습(Yolo) 및 segmentation (Sam2 & cutie)를 이용하여 탐지 결과와 seg결과를 비교함으로써 객체 놓침 현상 해결
 
 ## References
 
