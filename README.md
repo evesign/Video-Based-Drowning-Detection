@@ -1,6 +1,6 @@
-# Video-Based Drowning Detection
+# 🏊:Video-Based Drowning Detection
 
-## 프로젝트 개요
+## 📋프로젝트 개요
 
 **프로젝트 명:**
 수영장 환경에서 익수(Drowning)행동을 실시간(RTSP)으로 감지하는 비전 안전시스템 
@@ -13,7 +13,7 @@
 
 ---
 
-## Pipeline
+## :🔬:Pipeline
 
 ```
 [Stage 0] 원본 영상 / RTSP 스트림
@@ -29,7 +29,7 @@
 ## Detection - Tracking - Classification 전체 파이프라인 구동 데모 영상
 https://github.com/user-attachments/assets/adac6fdd-c303-48cb-aeaf-0d1077ad5fe8
 
-## 사용 기술 스택
+## 🛠️사용 기술 스택
 |분류|기술|설명|
 |------|---|---|
 |Detection|YOLO|단일 이미지(frame)에서 객체의 위치를 탐지하는 모델|
