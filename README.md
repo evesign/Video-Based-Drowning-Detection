@@ -25,7 +25,7 @@
 ```
 
 ---
-Detection - Tracking - Classification 전체 파이프라인 구동 데모 영상
+## Detection - Tracking - Classification 전체 파이프라인 구동 데모 영상
 https://github.com/user-attachments/assets/adac6fdd-c303-48cb-aeaf-0d1077ad5fe8
 
 ## 사용 기술 스택
