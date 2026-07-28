@@ -29,7 +29,15 @@
 https://github.com/user-attachments/assets/adac6fdd-c303-48cb-aeaf-0d1077ad5fe8
 
 ## 사용 기술 스택
-
+|분류|기술|설명|
+|------|---|---|
+|Detection|YOLO|단일 이미지(frame)에서 객체의 위치를 탐지하는 모델|
+|Segmentation|SAM2|한 프레임 내에서 물체 분할|
+|Action classification backbone|VideoMAEv2 (OpenGVLab/vit_g_hybrid_pt_1200e_k710_ft)|프레임 묶음 바탕의 행동 특징 추출 백본|
+|VLM|Qwen3-VL-4B-Thinking-FP8|비디오 이해 및 추론이 가능한 Vision-Language 모델|
+|추론 엔진|vllm|고속 LLM 추론 서빙|
+|딥러닝 프레임워크|Pytorch, Transformer|모델 로딩 및 처리|
+|RTSP||고속 LLM 추론 서빙|
 
 ## Directory Structure
 
